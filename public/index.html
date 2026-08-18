@@ -120,6 +120,7 @@ async function createUser(){
   if(r.ok){document.getElementById("newName").value="";document.getElementById("newEmail").value="";document.getElementById("newPassword").value="";await loadUsers()}
 }
 async function boot(){
+  document.getElementById("app").classList.remove("hidden");
   buildFilters();
   await loadSession();
   await loadEvents();
