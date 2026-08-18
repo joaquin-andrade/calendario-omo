@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calendario de Coordinación | Colegio Olegario Morales Oliva</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#15213a}.hidden{display:none!important}
+.header{height:105px;background:#071d67;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 30px}.brand{display:flex;align-items:center;gap:18px}.logo{width:82px;height:82px;border-radius:50%;background:#fff}.brand h1{margin:0;font-size:25px}.brand p{margin:6px 0 0;font-size:16px}.user{display:flex;gap:10px;align-items:center}.avatar{width:42px;height:42px;border-radius:50%;background:#edf1f7;color:#526078;display:grid;place-items:center}
+.layout{display:grid;grid-template-columns:250px 1fr 320px;min-height:calc(100vh - 105px)}.sidebar,.right{background:#fff}.sidebar{border-right:1px solid #e1e6ef;padding:28px 18px}.nav{padding:13px 15px;border-radius:8px;margin-bottom:5px;font-weight:600;cursor:pointer}.nav.active{background:#082c72;color:#fff}.section{margin:28px 0 10px;padding-left:12px;color:#7b8597;font-size:12px;font-weight:bold}.filter{display:flex;gap:9px;align-items:center;padding:7px 10px;font-size:14px}.filter input{accent-color:#1454ae}.dot{width:12px;height:12px;border-radius:3px;display:inline-block}.blue{background:#2866ca}.purple{background:#7034c5}.green{background:#4b9c43}.orange{background:#efa311}.pink{background:#ee6380}.cyan{background:#16a7a5}.note{margin-top:25px;background:#f4f6f9;padding:14px;border-radius:8px;font-size:12px;color:#596579}
+.main{padding:28px 20px}.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:24px}.month{font-size:28px;font-weight:700;margin:0 auto 0 8px}.btn{border:1px solid #d7dee9;background:#fff;border-radius:8px;padding:11px 15px;font-weight:600;cursor:pointer}.btn.primary{background:#0b50b2;color:#fff;border-color:#0b50b2}.btn.green{background:#0aa064;color:#fff;border:0}
+.calendar{background:#fff;border:1px solid #dfe5ed;border-radius:10px;overflow:hidden}.week,.days{display:grid;grid-template-columns:repeat(7,1fr)}.week div{text-align:center;padding:14px;border-bottom:1px solid #e4e8ee;font-weight:bold}.day{min-height:132px;padding:9px;border-right:1px solid #e7ebf0;border-bottom:1px solid #e7ebf0}.day:nth-child(7n){border-right:0}.num{font-weight:700;font-size:13px;margin-bottom:8px}.muted{color:#aeb7c5}.event{border-radius:6px;padding:7px 8px;margin-bottom:5px;font-size:11px;font-weight:bold;cursor:pointer}.event:hover{outline:1px solid #b5bfd0}
+.right{border-left:1px solid #e1e6ef;padding:22px}.right h2{font-size:18px;margin:3px 0 20px}.card{border-left:4px solid #7034c5;padding:12px;margin-bottom:13px;border-radius:4px;background:#fafbfe}.card strong{display:block;margin:6px 0}.tag{display:inline-block;margin-top:7px;padding:4px 8px;border-radius:5px;background:#eadcff;color:#6434a5;font-size:11px;font-weight:bold}.legend{grid-column:2/4;background:#fff;margin:0 20px 12px;padding:14px 20px;border-radius:8px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}.bottom{grid-column:2/4;text-align:center;color:#667287;padding:8px 20px 20px;font-size:12px}
+.modalbg{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;z-index:20}.modal{width:min(520px,92vw);background:#fff;border-radius:12px;padding:25px}.modal h2{margin-top:0}.form{display:grid;gap:12px}.form label{font-size:13px;font-weight:bold}.form input,.form select,.form textarea{width:100%;padding:11px;border:1px solid #d6dde8;border-radius:7px;font:inherit}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.login{min-height:100vh;display:grid;place-items:center;background:#071d67}.loginbox{width:min(410px,92vw);background:#fff;border-radius:14px;padding:30px;box-shadow:0 20px 60px #0004}.loginbox .logo{display:block;margin:0 auto 15px}.loginbox h1{text-align:center;font-size:22px}.loginbox p{text-align:center;color:#68748a}.loginbox input{width:100%;padding:12px;margin:7px 0;border:1px solid #d5dce7;border-radius:7px}.error{color:#b52e55;font-size:13px;min-height:18px}
+@media(max-width:1100px){.layout{grid-template-columns:210px 1fr}.right{display:none}.legend,.bottom{grid-column:2}}@media(max-width:750px){.layout{display:block}.sidebar{display:none}.main{padding:12px}.day{min-height:90px}.event{font-size:9px}.brand h1{font-size:17px}.brand p{font-size:11px}.header{padding:0 12px}.logo{width:64px;height:64px}.month{font-size:21px}}
+.userTable{width:100%;border-collapse:collapse;margin-top:15px}.userTable th,.userTable td{padding:10px;border-bottom:1px solid #e7ebf0;text-align:left;font-size:13px}.pill{padding:4px 8px;border-radius:20px;background:#edf2fb;font-size:11px;font-weight:bold}.userForm{display:grid;gap:10px;margin-top:15px}.userForm input,.userForm select{padding:10px;border:1px solid #d6dde8;border-radius:7px}.success{color:#2b7a2d;font-size:13px;min-height:18px}
+</style></head><body>
+<div id="login" class="login" style="display:none"><div class="loginbox"><img class="logo" src="/logo.png"><h1>Calendario de Coordinación</h1><p>Colegio Olegario Morales Oliva · Paillaco</p><input id="email" placeholder="Correo institucional"><input id="password" type="password" placeholder="Contraseña"><div id="loginError" class="error"></div><button class="btn primary" style="width:100%" onclick="login()">Ingresar</button><small style="display:block;margin-top:15px;color:#7b8597">Usa las credenciales entregadas por la administración.</small></div></div>
+<div id="app" class="hidden">
+<header class="header"><div class="brand"><img class="logo" src="/logo.png"><div><h1>CALENDARIO DE COORDINACIÓN</h1><p>COLEGIO OLEGARIO MORALES OLIVA · PAILLACO</p></div></div><div class="user"><div class="avatar">👥</div><div><b id="userName">Vista pública</b><br><small id="userRole">Todos pueden consultar</small></div><button class="btn" id="loginBtn" onclick="showLogin()">Ingresar</button><button class="btn hidden" id="logoutBtn" onclick="logout()">Salir</button></div></header>
+<div class="layout"><aside class="sidebar"><div class="nav active">▣ &nbsp; Calendario</div><div class="nav hidden" id="newNav" onclick="openModal()">⊕ &nbsp; Nueva actividad</div><div class="nav">☷ &nbsp; Actividades</div><div class="nav">♧ &nbsp; Áreas / Equipos</div><div class="nav hidden" id="usersNav" onclick="openUsers()">♙ &nbsp; Usuarios</div><div class="nav">⚙ &nbsp; Configuración</div><div class="section">FILTRO POR ÁREA</div><div id="filters"></div><div class="note">ⓘ &nbsp; <b>Calendario público.</b><br>Todos pueden consultar las actividades. Solo las cuentas autorizadas pueden publicar.</div></aside>
+<main class="main"><div class="toolbar"><button class="btn" onclick="moveMonth(-1)">←</button><div class="month" id="month"></div><button class="btn" onclick="moveMonth(1)">→</button><button class="btn" onclick="today()">Hoy</button><button class="btn primary">Mes</button><button class="btn">Semana</button><button class="btn green hidden" id="newMainBtn" onclick="openModal()">＋ Nueva actividad</button></div><div class="calendar"><div class="week"><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div></div><div class="days" id="days"></div></div></main>
+<aside class="right"><h2 id="selectedTitle"></h2><div id="dayEvents"></div><button class="btn hidden" id="newDayBtn" style="width:100%" onclick="openModal()">＋ Agregar actividad</button><button class="btn" id="loginDayBtn" style="width:100%" onclick="showLogin()">🔐 Ingresar para publicar</button></aside><div class="legend" id="legend"></div><div class="bottom">Colegio Olegario Morales Oliva · Paillaco, Región de Los Ríos</div></div></div>
+<div id="usersbg" class="modalbg"><div class="modal" style="width:min(800px,94vw)"><h2>Usuarios autorizados</h2><p style="color:#667287">Solo las personas registradas aquí podrán iniciar sesión y publicar actividades.</p><div class="userForm"><div class="row"><input id="newName" placeholder="Nombre completo"><input id="newEmail" type="email" placeholder="Correo electrónico"></div><div class="row"><input id="newPassword" type="password" placeholder="Contraseña (mínimo 8 caracteres)"><select id="newRole"></select></div><div id="userMsg" class="success"></div><button class="btn primary" onclick="createUser()">＋ Crear usuario</button></div><div id="userList"></div><div class="actions"><button class="btn" onclick="closeUsers()">Cerrar</button></div></div></div>
+<div id="modalbg" class="modalbg"><div class="modal"><h2>Nueva actividad</h2><div class="form"><div><label>Actividad</label><input id="title" placeholder="Ej.: Reunión de coordinación"></div><div class="row"><div><label>Fecha</label><input id="date" type="date"></div><div><label>Área</label><select id="area"></select></div></div><div class="row"><div><label>Hora inicio</label><input id="start" type="time"></div><div><label>Hora término</label><input id="end" type="time"></div></div><div><label>Lugar</label><input id="place" placeholder="Ej.: Sala UTP"></div><div><label>Descripción (opcional)</label><textarea id="description" rows="3"></textarea></div></div><div class="actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="createEvent()">Guardar actividad</button></div></div></div>
+<script>
+let user=null,events=[],current=new Date(),selectedDate=null,filters={};
+const areas=["Dirección","UTP","Inspectoría","Convivencia Escolar","PIE","Informática","Orquesta","Actividades Artísticas","Deportes","Reuniones","Otros"];
+const areaColors={"Dirección":"#8E24AA","UTP":"#1E88E5","Inspectoría":"#FB8C00","Convivencia Escolar":"#43A047","PIE":"#00ACC1","Informática":"#3949AB","Orquesta":"#D81B60","Actividades Artísticas":"#6D4C41","Deportes":"#00897B","Reuniones":"#F4511E","Otros":"#757575"};
+areas.forEach(a=>filters[a]=true);
+
+async function api(url,opt={}){return fetch(url,{...opt,headers:{"Content-Type":"application/json",...(opt.headers||{})}})}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function localDateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function parseDateKey(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
+function fmtTime(t){return t?String(t).slice(0,5):""}
+function monthLabel(d){return d.toLocaleDateString("es-CL",{month:"long",year:"numeric"}).replace(/^./,c=>c.toUpperCase())}
+
+function showLogin(){document.getElementById("login").style.display="grid";document.getElementById("loginError").textContent="";document.getElementById("email").focus()}
+function hideLogin(){document.getElementById("login").style.display="none"}
+async function login(){
+  const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value;
+  const r=await api("/api/login",{method:"POST",body:JSON.stringify({email,password})}),d=await r.json();
+  if(!r.ok){document.getElementById("loginError").textContent=d.error||"No se pudo iniciar sesión";return}
+  user=d.user;hideLogin();updateAccess();render();await loadEvents();
+}
+async function logout(){await api("/api/logout",{method:"POST"});user=null;updateAccess();render()}
+async function loadSession(){const r=await fetch("/api/me");if(r.ok){const d=await r.json();user=d.user}}
+async function loadEvents(){const r=await fetch("/api/events");events=r.ok?await r.json():[]}
+function updateAccess(){
+  const pub=!!user&&(user.role==="Administrador"||user.canPublish);
+  document.getElementById("newNav").classList.toggle("hidden",!pub);
+  document.getElementById("newMainBtn").classList.toggle("hidden",!pub);
+  document.getElementById("newDayBtn").classList.toggle("hidden",!pub);
+  document.getElementById("loginDayBtn").classList.toggle("hidden",!!user);
+  document.getElementById("usersNav").classList.toggle("hidden",!(user&&user.role==="Administrador"));
+  document.getElementById("loginBtn").classList.toggle("hidden",!!user);
+  document.getElementById("logoutBtn").classList.toggle("hidden",!user);
+  document.getElementById("userName").textContent=user?user.name:"Vista pública";
+  document.getElementById("userRole").textContent=user?(pub?user.role+" · Puede publicar":user.role+" · Solo consulta"):"Todos pueden consultar";
+}
+function buildFilters(){
+  document.getElementById("filters").innerHTML=areas.map(a=>`<label class="filter"><input type="checkbox" checked onchange="filters['${a}']=this.checked;render()"> <span class="dot" style="background:${areaColors[a]}"></span>${a}</label>`).join("");
+  document.getElementById("legend").innerHTML=areas.map(a=>`<span><i class="dot" style="background:${areaColors[a]}"></i> ${a}</span>`).join("");
+}
+function moveMonth(n){current=new Date(current.getFullYear(),current.getMonth()+n,1);render()}
+function today(){current=new Date();render()}
+function openModal(){
+  if(!user){showLogin();return}
+  if(!(user.role==="Administrador"||user.canPublish)){alert("Tu cuenta no tiene permiso para publicar.");return}
+  document.getElementById("modalbg").style.display="flex";
+  document.getElementById("area").innerHTML=areas.map(a=>`<option>${a}</option>`).join("");
+  document.getElementById("date").value=selectedDate||localDateKey(new Date());
+  document.getElementById("title").focus();
+}
+function closeModal(){document.getElementById("modalbg").style.display="none"}
+async function createEvent(){
+  const body={title:document.getElementById("title").value.trim(),date:document.getElementById("date").value,start:document.getElementById("start").value,end:document.getElementById("end").value,place:document.getElementById("place").value.trim(),area:document.getElementById("area").value,description:document.getElementById("description").value.trim()};
+  if(!body.title||!body.date||!body.start||!body.end){alert("Completa actividad, fecha y horarios.");return}
+  const r=await api("/api/events",{method:"POST",body:JSON.stringify(body)}),d=await r.json();
+  if(!r.ok){alert(d.error||"No se pudo guardar");return}
+  events.push(d);closeModal();document.getElementById("title").value="";document.getElementById("place").value="";document.getElementById("description").value="";render();
+}
+function render(){
+  document.getElementById("month").textContent=monthLabel(current);
+  const first=new Date(current.getFullYear(),current.getMonth(),1);
+  const offset=(first.getDay()+6)%7;
+  const daysInMonth=new Date(current.getFullYear(),current.getMonth()+1,0).getDate();
+  const total=Math.ceil((offset+daysInMonth)/7)*7;
+  let out="";
+  for(let i=0;i<total;i++){
+    const n=i-offset+1,d=new Date(current.getFullYear(),current.getMonth(),n);
+    const inMonth=n>=1&&n<=daysInMonth,key=localDateKey(d);
+    const dayEvents=events.filter(e=>e.date&&e.date.slice(0,10)===key&&filters[e.area]!==false).sort((a,b)=>String(a.start).localeCompare(String(b.start)));
+    out+=`<div class="day" onclick="selectDay('${key}')"><div class="num ${inMonth?"":"muted"}">${d.getDate()}</div>${dayEvents.map(e=>`<div class="event" style="background:${areaColors[e.area]||"#667085"}22;border-left:4px solid ${areaColors[e.area]||"#667085"}" onclick="event.stopPropagation();selectDay('${key}')"><span style="color:${areaColors[e.area]||"#667085"}">${esc(fmtTime(e.start))}</span> ${esc(e.title)}</div>`).join("")}</div>`;
+  }
+  document.getElementById("days").innerHTML=out;
+  if(!selectedDate||!events.some(e=>e.date?.slice(0,10)===selectedDate)) selectedDate=localDateKey(new Date(current.getFullYear(),current.getMonth(),Math.min(new Date().getDate(),daysInMonth)));
+  selectDay(selectedDate,false);
+}
+function selectDay(key,rerender=true){
+  selectedDate=key;
+  const list=events.filter(e=>e.date?.slice(0,10)===key&&filters[e.area]!==false).sort((a,b)=>String(a.start).localeCompare(String(b.start)));
+  document.getElementById("selectedTitle").textContent=parseDateKey(key).toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"}).replace(/^./,c=>c.toUpperCase());
+  document.getElementById("dayEvents").innerHTML=list.length?list.map(e=>`<div class="card" style="border-left-color:${areaColors[e.area]||"#667085"}"><small>${esc(fmtTime(e.start))} – ${esc(fmtTime(e.end))}${e.place?" · "+esc(e.place):""}</small><strong>${esc(e.title)}</strong>${e.description?`<div style="color:#667287;font-size:12px">${esc(e.description)}</div>`:""}<span class="tag" style="background:${areaColors[e.area]||"#667085"}22;color:${areaColors[e.area]||"#667085"}">${esc(e.area)}</span></div>`).join(""):`<div class="note">No hay actividades para este día.</div>`;
+}
+async function openUsers(){
+  if(!user||user.role!=="Administrador"){alert("Solo el administrador.");return}
+  document.getElementById("usersbg").style.display="flex";
+  await loadUsers();
+}
+function closeUsers(){document.getElementById("usersbg").style.display="none"}
+async function loadUsers(){
+  const r=await api("/api/users");if(!r.ok)return;
+  const list=await r.json();
+  document.getElementById("userList").innerHTML=`<table class="userTable"><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th></tr>${list.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td><span class="pill">${esc(u.role)}</span></td><td>${u.active?"Activo":"Desactivado"}</td></tr>`).join("")}</table>`;
+}
+async function createUser(){
+  const body={name:document.getElementById("newName").value.trim(),email:document.getElementById("newEmail").value.trim(),password:document.getElementById("newPassword").value,role:document.getElementById("newRole").value};
+  const r=await api("/api/users",{method:"POST",body:JSON.stringify(body)}),d=await r.json();
+  document.getElementById("userMsg").textContent=r.ok?"Usuario creado correctamente.":(d.error||"No se pudo crear");
+  if(r.ok){document.getElementById("newName").value="";document.getElementById("newEmail").value="";document.getElementById("newPassword").value="";await loadUsers()}
+}
+async function boot(){
+  buildFilters();
+  await loadSession();
+  await loadEvents();
+  updateAccess();
+  render();
+}
+boot();
+</script></body></html>

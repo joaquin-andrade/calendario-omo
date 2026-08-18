@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Yonatan Huentemilla",
+    "email": "admin@omo.local",
+    "role": "Administrador",
+    "passwordHash": "192f8b04c6df7bfd712a666c1ec0d9b7:73dd56b603ec77cec152ae3951b4eefbf66e5c3ea9c9525d3da6ff5f5c17ec0eb2c05ebb311a22f23d4d5f2864d0e61d10bd5935341d15890706518c3235e67b",
+    "active": true,
+    "canPublish": true
+  },
+  {
+    "id": 2,
+    "name": "Usuario UTP",
+    "email": "utp@omo.local",
+    "role": "UTP",
+    "passwordHash": "475f203d5be1433eb3b565a03b3cc106:1a022dee5370e2b89ec6023b656e8d354eb4cb63954c000a8c092b38d3006964516861a4527b4fb87598fc251b0d5854b36363f20623958e226123c35249b46f",
+    "active": true,
+    "canPublish": false
+  },
+  {
+    "id": 3,
+    "name": "Usuario Docente",
+    "email": "docente@omo.local",
+    "role": "Docentes",
+    "passwordHash": "ee6fdf07d96a6a81227e275240f956f7:5a2c37c559af6eebf0225ea5334cf5477080154eaa34c531b36941b6fa5b3c46832ca826eb646098b7d01865d52f3e5b47919dfebe9a874499f5a598dc990a48",
+    "active": true,
+    "canPublish": false
+  }
+]

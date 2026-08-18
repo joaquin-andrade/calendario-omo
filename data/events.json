@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Reunión UTP",
+    "date": "2026-08-25",
+    "start": "10:00",
+    "end": "11:30",
+    "place": "Sala UTP",
+    "area": "UTP",
+    "description": ""
+  },
+  {
+    "id": 2,
+    "title": "Reunión Docentes",
+    "date": "2026-08-25",
+    "start": "14:00",
+    "end": "15:30",
+    "place": "Biblioteca",
+    "area": "Docentes",
+    "description": ""
+  },
+  {
+    "id": 3,
+    "title": "Convivencia Escolar",
+    "date": "2026-08-25",
+    "start": "15:00",
+    "end": "16:00",
+    "place": "Oficina CE",
+    "area": "Convivencia Escolar",
+    "description": ""
+  },
+  {
+    "id": 4,
+    "title": "Ensayo Orquesta",
+    "date": "2026-08-25",
+    "start": "16:00",
+    "end": "17:30",
+    "place": "Sala de Música",
+    "area": "Orquesta",
+    "description": ""
+  }
+]
