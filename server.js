@@ -7,6 +7,7 @@ const bcrypt=require("bcryptjs");
 const path=require("path");
 
 const app=express();
+app.set("trust proxy",1);
 const PORT=process.env.PORT||3000;
 const connectionString=process.env.DATABASE_URL||process.env.POSTGRES_URL||process.env.POSTGRES_PRISMA_URL;
 
