@@ -108,20 +108,21 @@ async function openUsers(){
   await loadUsers();
 }async function editEvent(id){
   const event=events.find(e=>e.id==id);
+
   if(!event){
     alert("No se encontró la actividad");
     return;
   }
 
   document.getElementById("title").value=event.title||"";
-
-  document.getElementById("newArea").value=event.area||"";
-  document.getElementById("newStart").value=event.start||"";
-  document.getElementById("newEnd").value=event.end||"";
-  document.getElementById("newPlace").value=event.place||"";
-  document.getElementById("newDescription").value=event.description||"";
   document.getElementById("date").value=event.date?.slice(0,10)||"";
-  document.getElementById("eventModal").style.display="flex";
+  document.getElementById("area").value=event.area||"";
+  document.getElementById("start").value=event.start||"";
+  document.getElementById("end").value=event.end||"";
+  document.getElementById("place").value=event.place||"";
+  document.getElementById("description").value=event.description||"";
+
+  document.getElementById("modalbg").style.display="flex";
 }
   async function deleteEvent(id){
   if(!confirm("¿Estás seguro de que quieres eliminar esta actividad?")) return;
