@@ -17,6 +17,18 @@
 }
 }sidebar{display:none}.main{padding:12px}.day{min-height:90px}.event{font-size:9px}.brand h1{font-size:17px}.brand p{font-size:11px}.header{padding:0 12px}.logo{width:64px;height:64px}.month{font-size:21px}}
 .userTable{width:100%;border-collapse:collapse;margin-top:15px}.userTable th,.userTable td{padding:10px;border-bottom:1px solid #e7ebf0;text-align:left;font-size:13px}.pill{padding:4px 8px;border-radius:20px;background:#edf2fb;font-size:11px;font-weight:bold}.userForm{display:grid;gap:10px;margin-top:15px}.userForm input,.userForm select{padding:10px;border:1px solid #d6dde8;border-radius:7px}.success{color:#2b7a2d;font-size:13px;min-height:18px}
+  @media (display-mode: standalone) and (min-width: 700px){
+  .layout{
+    display:grid !important;
+    grid-template-columns:210px minmax(0,1fr) 360px !important;
+  }
+
+  .right{
+    display:block !important;
+    width:auto !important;
+    margin-top:0 !important;
+  }
+}
 </style>
 <link rel="manifest" href="/manifest.json">
 </head><body>
