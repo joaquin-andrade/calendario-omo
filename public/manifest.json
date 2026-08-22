@@ -1,0 +1,17 @@
+{
+  "name": "Calendario de Coordinación OMO",
+  "short_name": "Calendario OMO",
+  "description": "Calendario de Coordinación del Colegio Olegario Morales Oliva",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b2a78",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
