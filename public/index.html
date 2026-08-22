@@ -114,13 +114,13 @@ async function openUsers(){
   }
 
   document.getElementById("title").value=event.title||"";
-  document.getElementById("newDate").value=event.date?.slice(0,10)||"";
+
   document.getElementById("newArea").value=event.area||"";
   document.getElementById("newStart").value=event.start||"";
   document.getElementById("newEnd").value=event.end||"";
   document.getElementById("newPlace").value=event.place||"";
   document.getElementById("newDescription").value=event.description||"";
-
+  document.getElementById("date").value=event.date?.slice(0,10)||"";
   document.getElementById("eventModal").style.display="flex";
 }
   async function deleteEvent(id){
