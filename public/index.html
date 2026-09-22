@@ -82,6 +82,14 @@ function buildFilters(){
 }
 function moveMonth(n){current=new Date(current.getFullYear(),current.getMonth()+n,1);render()}
 function today(){current=new Date();render()}
+function setView(view){
+  if(view==="month"){
+    document.querySelector(".calendar").style.display="block";
+  }
+  if(view==="week"){
+    alert("La vista semanal todavía está en desarrollo");
+  }
+}  
 function openModal(){
   if(!user){showLogin();return}
   if(!(user.role==="Administrador"||user.canPublish)){alert("Tu cuenta no tiene permiso para publicar.");return}
