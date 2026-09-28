@@ -1,4 +1,4 @@
-require("dotenv").config();
+	require("dotenv").config();
 const express=require("express");
 const session=require("express-session");
 const pgSession=require("connect-pg-simple")(session);
@@ -125,7 +125,98 @@ app.post("/api/events",publisher,async(req,res)=>{
     res.status(201).json(r.rows[0]);
   }catch(e){console.error("POST /api/events",e);res.status(500).json({error:"No se pudo guardar la actividad"});}
 });
+app.patch("/api/events/:id", publisher, async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const {
+      title,
+      date,
+      start,
+      end,
+      place = "",
+      area,
+      description = "",
+      categoryId = null
+    } = req.body;
 
+    if (!title || !date || !start || !end || !area) {
+      return res.status(400).json({
+        error: "Completa actividad, fecha, horarios y área"
+      });
+    }
+
+    if (!AREAS.includes(area)) {
+      return res.status(400).json({
+        error: "Área no válida"
+      });
+    }
+
+    const existing = await pool.query(
+      "SELECT created_by FROM events WHERE id=$1",
+      [id]
+    );
+
+    if (!existing.rows.length) {
+      return res.status(404).json({
+        error: "Actividad no encontrada"
+      });
+    }
+
+    if (
+      req.session.user.role !== "Administrador" &&
+      existing.rows[0].created_by !== req.session.user.id
+    ) {
+      return res.status(403).json({
+        error: "Solo puedes editar tus actividades"
+      });
+    }
+
+    const result = await pool.query(
+      `UPDATE events SET
+        title=$1,
+        event_date=$2,
+        start_time=$3,
+        end_time=$4,
+        place=$5,
+        area=$6,
+        description=$7,
+        category_id=$8
+       WHERE id=$9
+       RETURNING
+        id,
+        title,
+        event_date AS date,
+        start_time AS start,
+        end_time AS "end",
+        place,
+        area,
+        description,
+        created_by AS "createdBy",
+        created_by_name AS "createdByName",
+        category_id AS "categoryId"`,
+      [
+        title,
+        date,
+        start,
+        end,
+        place,
+        area,
+        description,
+        categoryId,
+        id
+      ]
+    );
+
+    res.json(result.rows[0]);
+
+  } catch (error) {
+    console.error("PATCH /api/events/:id", error);
+
+    res.status(500).json({
+      error: "No se pudo actualizar la actividad"
+    });
+  }
+});
 app.delete("/api/events/:id",publisher,async(req,res)=>{
   try{
     const id=Number(req.params.id);
