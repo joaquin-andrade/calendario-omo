@@ -93,18 +93,75 @@ function setView(view){
 function openModal(){
   if(!user){showLogin();return}
   if(!(user.role==="Administrador"||user.canPublish)){alert("Tu cuenta no tiene permiso para publicar.");return}
-  document.getElementById("modalbg").style.display="flex";
+    const modal=document.getElementById("modalbg");
+    delete modal.dataset.editingId;
+    modal.querySelector("h2").textContent="Nueva actividad";
+document.getElementById("modalbg").style.display="flex";
   document.getElementById("area").innerHTML=areas.map(a=>`<option>${a}</option>`).join("");
   document.getElementById("date").value=selectedDate||localDateKey(new Date());
   document.getElementById("title").focus();
 }
 function closeModal(){document.getElementById("modalbg").style.display="none"}
+
 async function saveEvent(){
-  const body={title:document.getElementById("title").value.trim(),date:document.getElementById("date").value,start:document.getElementById("start").value,end:document.getElementById("end").value,place:document.getElementById("place").value.trim(),area:document.getElementById("area").value,description:document.getElementById("description").value.trim()};
-  if(!body.title||!body.date||!body.start||!body.end){alert("Completa actividad, fecha y horarios.");return}
-  const r=await api("/api/events",{method:"POST",body:JSON.stringify(body)}),d=await r.json();
-  if(!r.ok){alert(d.error||"No se pudo guardar");return}
-  events.push(d);closeModal();document.getElementById("title").value="";document.getElementById("place").value="";document.getElementById("description").value="";render();
+  const modal=document.getElementById("modalbg");
+  const editingEventId=modal.dataset.editingId||null;
+
+  const body={
+    title:document.getElementById("title").value.trim(),
+    date:document.getElementById("date").value,
+    start:document.getElementById("start").value,
+    end:document.getElementById("end").value,
+    place:document.getElementById("place").value.trim(),
+    area:document.getElementById("area").value,
+    description:document.getElementById("description").value.trim()
+  };
+
+  if(!body.title||!body.date||!body.start||!body.end){
+    alert("Completa actividad, fecha y horarios.");
+    return;
+  }
+
+  const editing=!!editingEventId;
+  const url=editing
+    ? "/api/events/"+editingEventId
+    : "/api/events";
+
+  const method=editing ? "PATCH" : "POST";
+
+  const r=await api(url,{
+    method:method,
+    body:JSON.stringify(body)
+  });
+
+  const d=await r.json();
+
+  if(!r.ok){
+    alert(d.error||"No se pudo guardar");
+    return;
+  }
+
+  if(editing){
+    events=events.map(e=>
+      String(e.id)===String(editingEventId) ? d : e
+    );
+  }else{
+    events.push(d);
+  }
+
+  delete modal.dataset.editingId;
+
+  modal.querySelector("h2").textContent="Nueva actividad";
+
+  closeModal();
+
+  document.getElementById("title").value="";
+  document.getElementById("place").value="";
+  document.getElementById("description").value="";
+
+  render();
+}
+cription").value="";render();
 }
 function render(){
   document.getElementById("month").textContent=monthLabel(current);
@@ -133,13 +190,21 @@ async function openUsers(){
   if(!user||user.role!=="Administrador"){alert("Solo el administrador.");return}
   document.getElementById("usersbg").style.display="flex";
   await loadUsers();
-}async function editEvent(id){
+}
+function editEvent(id){
   const event=events.find(e=>e.id==id);
 
   if(!event){
     alert("No se encontró la actividad");
     return;
   }
+
+  const modal=document.getElementById("modalbg");
+
+  modal.dataset.editingId=event.id;
+
+  document.getElementById("area").innerHTML=
+    areas.map(a=>`<option>${a}</option>`).join("");
 
   document.getElementById("title").value=event.title||"";
   document.getElementById("date").value=event.date?.slice(0,10)||"";
@@ -149,7 +214,9 @@ async function openUsers(){
   document.getElementById("place").value=event.place||"";
   document.getElementById("description").value=event.description||"";
 
-  document.getElementById("modalbg").style.display="flex";
+  modal.querySelector("h2").textContent="Editar actividad";
+
+  modal.style.display="flex";
 }
   async function deleteEvent(id){
   if(!confirm("¿Estás seguro de que quieres eliminar esta actividad?")) return;
