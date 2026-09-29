@@ -229,7 +229,7 @@ function renderWeek(){
 
   document.querySelector(".week").innerHTML=days.map(d=>{
     const name=d.toLocaleDateString("es-CL",{weekday:"short"}).replace(/\./g,"");
-    return `<div>${name.charAt(0).toUpperCase()+name.slice(1)}<br><strong>${d.getDate()}</strong></div>`;
+    const key=localDateKey(d);const isToday=key===localDateKey(new Date());return `<div>${name.charAt(0).toUpperCase()+name.slice(1)}<br>${isToday?`<strong class="week-today">${d.getDate()}</strong>`:`<strong>${d.getDate()}</strong>`}</div>`;
   }).join("");
 
   const out=days.map(d=>{
