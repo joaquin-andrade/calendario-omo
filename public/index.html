@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Calendario de Coordinación | Colegio Olegario Morales Oliva</title>
+<title>Calendario de CoordinaciÃƒÂ³n | Colegio Olegario Morales Oliva</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#15213a}.hidden{display:none!important}
 .header{height:105px;background:#071d67;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 30px}.brand{display:flex;align-items:center;gap:18px}.logo{width:82px;height:82px;border-radius:50%;background:#fff}.brand h1{margin:0;font-size:25px}.brand p{margin:6px 0 0;font-size:16px}.user{display:flex;gap:10px;align-items:center}.avatar{width:42px;height:42px;border-radius:50%;background:#edf1f7;color:#526078;display:grid;place-items:center}
@@ -32,18 +32,18 @@
 </style>
 <link rel="manifest" href="/manifest.json">
 </head><body>
-<div id="login" class="login" style="display:none"><div class="loginbox"><img class="logo" src="/logo.png"><h1>Calendario de Coordinación</h1><p>Colegio Olegario Morales Oliva · Paillaco</p><input id="email" placeholder="Correo institucional"><input id="password" type="password" placeholder="Contraseña"><div id="loginError" class="error"></div><button class="btn primary" style="width:100%" onclick="login()">Ingresar</button><small style="display:block;margin-top:15px;color:#7b8597">Usa las credenciales entregadas por la administración.</small></div></div>
+<div id="login" class="login" style="display:none"><div class="loginbox"><img class="logo" src="/logo.png"><h1>Calendario de CoordinaciÃƒÂ³n</h1><p>Colegio Olegario Morales Oliva Ã‚Â· Paillaco</p><input id="email" placeholder="Correo institucional"><input id="password" type="password" placeholder="ContraseÃƒÂ±a"><div id="loginError" class="error"></div><button class="btn primary" style="width:100%" onclick="login()">Ingresar</button><small style="display:block;margin-top:15px;color:#7b8597">Usa las credenciales entregadas por la administraciÃƒÂ³n.</small></div></div>
 <div id="app" class="hidden">
-<header class="header"><div class="brand"><img class="logo" src="/logo.png"><div><h1>CALENDARIO DE COORDINACIÓN</h1><p>COLEGIO OLEGARIO MORALES OLIVA · PAILLACO</p></div></div><div class="user"><div class="avatar">👥</div><div><b id="userName">Vista pública</b><br><small id="userRole">Todos pueden consultar</small></div><button class="btn" id="loginBtn" onclick="showLogin()">Ingresar</button><button class="btn hidden" id="logoutBtn" onclick="logout()">Salir</button></div></header>
-<div class="layout"><aside class="sidebar"><div class="nav active">▣ &nbsp; Calendario</div><div class="nav hidden" id="newNav" onclick="openModal()">⊕ &nbsp; Nueva actividad</div><div class="nav">☷ &nbsp; Actividades</div><div class="nav">♧ &nbsp; Áreas / Equipos</div><div class="nav hidden" id="usersNav" onclick="openUsers()">♙ &nbsp; Usuarios</div><div class="nav">⚙ &nbsp; Configuración</div><div class="section">FILTRO POR ÁREA</div><div id="filters"></div><div class="note">ⓘ &nbsp; <b>Calendario público.</b><br>Todos pueden consultar las actividades. Solo las cuentas autorizadas pueden publicar.</div></aside>
-<main class="main"><div class="toolbar"><button class="btn" onclick="movePeriod(-1)">←</button><div class="month" id="month"></div><button class="btn" onclick="movePeriod(1)">→</button><button class="btn" onclick="today()">Hoy</button><button id="monthViewBtn" class="btn primary" onclick="setView('month')">Mes</button><button id="weekViewBtn" class="btn" onclick="setView('week')">Semana</button><button class="btn green hidden" id="newMainBtn" onclick="openModal()">＋ Nueva actividad</button></div><div class="calendar"><div class="week"><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div></div><div class="days" id="days"></div></div></main>
-<aside class="right"><h2 id="selectedTitle"></h2><div id="dayEvents"></div><button class="btn hidden" id="newDayBtn" style="width:100%" onclick="openModal()">＋ Agregar actividad</button><button class="btn" id="loginDayBtn" style="width:100%" onclick="showLogin()">🔐 Ingresar para publicar</button></aside><div class="legend" id="legend"></div><div class="bottom">Colegio Olegario Morales Oliva · Paillaco, Región de Los Ríos</div></div></div>
-<div id="usersbg" class="modalbg"><div class="modal" style="width:min(800px,94vw)"><h2>Usuarios autorizados</h2><p style="color:#667287">Solo las personas registradas aquí podrán iniciar sesión y publicar actividades.</p><div class="userForm"><div class="row"><input id="newName" placeholder="Nombre completo"><input id="newEmail" type="email" placeholder="Correo electrónico"></div><div class="row"><input id="newPassword" type="password" placeholder="Contraseña (mínimo 8 caracteres)"><select id="newRole"></select></div><div id="userMsg" class="success"></div><button class="btn primary" onclick="createUser()">＋ Crear usuario</button></div><div id="userList"></div><div class="actions"><button class="btn" onclick="closeUsers()">Cerrar</button></div></div></div>
-<div id="modalbg" class="modalbg"><div class="modal"><h2>Nueva actividad</h2><div class="form"><div><label>Actividad</label><input id="title" placeholder="Ej.: Reunión de coordinación"></div><div class="row"><div><label>Fecha</label><input id="date" type="date"></div><div><label>Área</label><select id="area"></select></div></div><div class="row"><div><label>Hora inicio</label><input id="start" type="time"></div><div><label>Hora término</label><input id="end" type="time"></div></div><div><label>Lugar</label><input id="place" placeholder="Ej.: Sala UTP"></div><div><label>Descripción (opcional)</label><textarea id="description" rows="3"></textarea></div></div><div class="actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveEvent()">Guardar actividad</button></div></div></div>
+<header class="header"><div class="brand"><img class="logo" src="/logo.png"><div><h1>CALENDARIO DE COORDINACIÃƒâ€œN</h1><p>COLEGIO OLEGARIO MORALES OLIVA Ã‚Â· PAILLACO</p></div></div><div class="user"><div class="avatar">Ã°Å¸â€˜Â¥</div><div><b id="userName">Vista pÃƒÂºblica</b><br><small id="userRole">Todos pueden consultar</small></div><button class="btn" id="loginBtn" onclick="showLogin()">Ingresar</button><button class="btn hidden" id="logoutBtn" onclick="logout()">Salir</button></div></header>
+<div class="layout"><aside class="sidebar"><div class="nav active">Ã¢â€“Â£ &nbsp; Calendario</div><div class="nav hidden" id="newNav" onclick="openModal()">Ã¢Å â€¢ &nbsp; Nueva actividad</div><div class="nav">Ã¢ËœÂ· &nbsp; Actividades</div><div class="nav">Ã¢â„¢Â§ &nbsp; ÃƒÂreas / Equipos</div><div class="nav hidden" id="usersNav" onclick="openUsers()">Ã¢â„¢â„¢ &nbsp; Usuarios</div><div class="nav">Ã¢Å¡â„¢ &nbsp; ConfiguraciÃƒÂ³n</div><div class="section">FILTRO POR ÃƒÂREA</div><div id="filters"></div><div class="note">Ã¢â€œËœ &nbsp; <b>Calendario pÃƒÂºblico.</b><br>Todos pueden consultar las actividades. Solo las cuentas autorizadas pueden publicar.</div></aside>
+<main class="main"><div class="toolbar"><button class="btn" onclick="movePeriod(-1)">Ã¢â€ Â</button><div class="month" id="month"></div><button class="btn" onclick="movePeriod(1)">Ã¢â€ â€™</button><button class="btn" onclick="today()">Hoy</button><button id="monthViewBtn" class="btn primary" onclick="setView('month')">Mes</button><button id="weekViewBtn" class="btn" onclick="setView('week')">Semana</button><button class="btn green hidden" id="newMainBtn" onclick="openModal()">Ã¯Â¼â€¹ Nueva actividad</button></div><div class="calendar"><div class="week"><div>Lun</div><div>Mar</div><div>MiÃƒÂ©</div><div>Jue</div><div>Vie</div><div>SÃƒÂ¡b</div><div>Dom</div></div><div class="days" id="days"></div></div></main>
+<aside class="right"><h2 id="selectedTitle"></h2><div id="dayEvents"></div><button class="btn hidden" id="newDayBtn" style="width:100%" onclick="openModal()">Ã¯Â¼â€¹ Agregar actividad</button><button class="btn" id="loginDayBtn" style="width:100%" onclick="showLogin()">Ã°Å¸â€Â Ingresar para publicar</button></aside><div class="legend" id="legend"></div><div class="bottom">Colegio Olegario Morales Oliva Ã‚Â· Paillaco, RegiÃƒÂ³n de Los RÃƒÂ­os</div></div></div>
+<div id="usersbg" class="modalbg"><div class="modal" style="width:min(800px,94vw)"><h2>Usuarios autorizados</h2><p style="color:#667287">Solo las personas registradas aquÃƒÂ­ podrÃƒÂ¡n iniciar sesiÃƒÂ³n y publicar actividades.</p><div class="userForm"><div class="row"><input id="newName" placeholder="Nombre completo"><input id="newEmail" type="email" placeholder="Correo electrÃƒÂ³nico"></div><div class="row"><input id="newPassword" type="password" placeholder="ContraseÃƒÂ±a (mÃƒÂ­nimo 8 caracteres)"><select id="newRole"></select></div><div id="userMsg" class="success"></div><button class="btn primary" onclick="createUser()">Ã¯Â¼â€¹ Crear usuario</button></div><div id="userList"></div><div class="actions"><button class="btn" onclick="closeUsers()">Cerrar</button></div></div></div>
+<div id="modalbg" class="modalbg"><div class="modal"><h2>Nueva actividad</h2><div class="form"><div><label>Actividad</label><input id="title" placeholder="Ej.: ReuniÃƒÂ³n de coordinaciÃƒÂ³n"></div><div class="row"><div><label>Fecha</label><input id="date" type="date"></div><div><label>Area que convoca</label><select id="area"></select></div><div><label>Dirigido a</label><select id="audience" multiple size="5"><option value="asistentes.omo@eduvaldivia.gob.cl">Asistentes de la Educacion</option><option value="asistentes.profesionales.omo@eduvaldivia.gob.cl">Asistentes Profesionales</option><option value="convivencia.omo@eduvaldivia.gob.cl">Convivencia Escolar</option><option value="docentes.omo@eduvaldivia.gob.cl">Docentes</option><option value="educadoras.diferenciales.omo@eduvaldivia.gob.cl">Educadoras Diferenciales</option><option value="equipo.directivo.omo@eduvaldivia.gob.cl">Equipo Directivo</option><option value="inspectoria.omo@eduvaldivia.gob.cl">Inspectoria</option><option value="mediaomo@eduvaldivia.gob.cl">Ensenanza Media</option><option value="nt.omo@eduvaldivia.gob.cl">NT1 - NT2</option><option value="ocb.omo@eduvaldivia.gob.cl">Orquesta, Coro y Banda</option><option value="primer.ciclo.omo@eduvaldivia.gob.cl">Primer Ciclo</option><option value="segundo.ciclo.omo@eduvaldivia.gob.cl">Segundo Ciclo</option></select></div></div><div class="row"><div><label>Hora inicio</label><input id="start" type="time"></div><div><label>Hora tÃƒÂ©rmino</label><input id="end" type="time"></div></div><div><label>Lugar</label><input id="place" placeholder="Ej.: Sala UTP"></div><div><label>DescripciÃƒÂ³n (opcional)</label><textarea id="description" rows="3"></textarea></div></div><div class="actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveEvent()">Guardar actividad</button></div></div></div>
 <script>
 let user=null,events=[],current=new Date(),selectedDate=null,filters={},currentView="month";
-const areas=["Dirección","UTP","Inspectoría","Convivencia Escolar","PIE","Informática","Orquesta","Actividades Artísticas","Deportes","Reuniones","Otros"];
-const areaColors={"Dirección":"#8E24AA","UTP":"#1E88E5","Inspectoría":"#FB8C00","Convivencia Escolar":"#43A047","PIE":"#00ACC1","Informática":"#3949AB","Orquesta":"#D81B60","Actividades Artísticas":"#6D4C41","Deportes":"#00897B","Reuniones":"#F4511E","Otros":"#757575"};
+const areas=["DirecciÃƒÂ³n","UTP","InspectorÃƒÂ­a","Convivencia Escolar","PIE","InformÃƒÂ¡tica","Orquesta","Actividades ArtÃƒÂ­sticas","Deportes","Reuniones","Otros"];
+const areaColors={"DirecciÃƒÂ³n":"#8E24AA","UTP":"#1E88E5","InspectorÃƒÂ­a":"#FB8C00","Convivencia Escolar":"#43A047","PIE":"#00ACC1","InformÃƒÂ¡tica":"#3949AB","Orquesta":"#D81B60","Actividades ArtÃƒÂ­sticas":"#6D4C41","Deportes":"#00897B","Reuniones":"#F4511E","Otros":"#757575"};
 areas.forEach(a=>filters[a]=true);
 
 async function api(url,opt={}){return fetch(url,{...opt,headers:{"Content-Type":"application/json",...(opt.headers||{})}})}
@@ -58,7 +58,7 @@ function hideLogin(){document.getElementById("login").style.display="none"}
 async function login(){
   const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value;
   const r=await api("/api/login",{method:"POST",body:JSON.stringify({email,password})}),d=await r.json();
-  if(!r.ok){document.getElementById("loginError").textContent=d.error||"No se pudo iniciar sesión";return}
+  if(!r.ok){document.getElementById("loginError").textContent=d.error||"No se pudo iniciar sesiÃƒÂ³n";return}
   user=d.user;hideLogin();updateAccess();render();await loadEvents();
 }
 async function logout(){await api("/api/logout",{method:"POST"});user=null;updateAccess();render()}
@@ -73,8 +73,8 @@ function updateAccess(){
   document.getElementById("usersNav").classList.toggle("hidden",!(user&&user.role==="Administrador"));
   document.getElementById("loginBtn").classList.toggle("hidden",!!user);
   document.getElementById("logoutBtn").classList.toggle("hidden",!user);
-  document.getElementById("userName").textContent=user?user.name:"Vista pública";
-  document.getElementById("userRole").textContent=user?(pub?user.role+" · Puede publicar":user.role+" · Solo consulta"):"Todos pueden consultar";
+  document.getElementById("userName").textContent=user?user.name:"Vista pÃƒÂºblica";
+  document.getElementById("userRole").textContent=user?(pub?user.role+" Ã‚Â· Puede publicar":user.role+" Ã‚Â· Solo consulta"):"Todos pueden consultar";
 }
 function buildFilters(){
   document.getElementById("filters").innerHTML=areas.map(a=>`<label class="filter"><input type="checkbox" checked onchange="filters['${a}']=this.checked;render()"> <span class="dot" style="background:${areaColors[a]}"></span>${a}</label>`).join("");
@@ -137,7 +137,8 @@ async function saveEvent(){
     end:document.getElementById("end").value,
     place:document.getElementById("place").value.trim(),
     area:document.getElementById("area").value,
-    description:document.getElementById("description").value.trim()
+    description:document.getElementById("description").value.trim(),
+    audience:Array.from(document.getElementById("audience").selectedOptions).map(o=>o.value)
   };
 
   if(!body.title||!body.date||!body.start||!body.end){
@@ -262,7 +263,7 @@ function selectDay(key,rerender=true){
   selectedDate=key;
   const list=events.filter(e=>e.date?.slice(0,10)===key&&filters[e.area]!==false).sort((a,b)=>String(a.start).localeCompare(String(b.start)));
   document.getElementById("selectedTitle").textContent=parseDateKey(key).toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"}).replace(/^./,c=>c.toUpperCase());
-  document.getElementById("dayEvents").innerHTML=list.length?list.map(e=>`<div class="card" style="border-left-color:${areaColors[e.area]||"#667085"}"><small>${esc(fmtTime(e.start))} – ${esc(fmtTime(e.end))}${e.place?" · "+esc(e.place):""}</small><strong>${esc(e.title)}</strong>${e.description?`<div style="color:#667287;font-size:12px">${esc(e.description)}</div>`:""}<span class="tag" style="background:${areaColors[e.area]||"#667085"}22;color:${areaColors[e.area]||"#667085"}">${esc(e.area)}</span><button class="btn" title="Editar actividad" onclick="editEvent(${e.id})">✏️</button><button class="btn" title="Eliminar actividad" onclick="deleteEvent(${e.id})">🗑️</button><small>👤 Publicado por: ${esc(e.createdByName || "Usuario")}</small></div>`).join(""):`<div class="note">No hay actividades para este día.</div>`;
+  document.getElementById("dayEvents").innerHTML=list.length?list.map(e=>`<div class="card" style="border-left-color:${areaColors[e.area]||"#667085"}"><small>${esc(fmtTime(e.start))} Ã¢â‚¬â€œ ${esc(fmtTime(e.end))}${e.place?" Ã‚Â· "+esc(e.place):""}</small><strong>${esc(e.title)}</strong>${e.description?`<div style="color:#667287;font-size:12px">${esc(e.description)}</div>`:""}<span class="tag" style="background:${areaColors[e.area]||"#667085"}22;color:${areaColors[e.area]||"#667085"}">${esc(e.area)}</span><button class="btn" title="Editar actividad" onclick="editEvent(${e.id})">Ã¢Å“ÂÃ¯Â¸Â</button><button class="btn" title="Eliminar actividad" onclick="deleteEvent(${e.id})">Ã°Å¸â€”â€˜Ã¯Â¸Â</button><small>Ã°Å¸â€˜Â¤ Publicado por: ${esc(e.createdByName || "Usuario")}</small></div>`).join(""):`<div class="note">No hay actividades para este dÃƒÂ­a.</div>`;
 }
 async function openUsers(){
   if(!user||user.role!=="Administrador"){alert("Solo el administrador.");return}
@@ -273,7 +274,7 @@ function editEvent(id){
   const event=events.find(e=>e.id==id);
 
   if(!event){
-    alert("No se encontró la actividad");
+    alert("No se encontrÃƒÂ³ la actividad");
     return;
   }
 
@@ -297,7 +298,7 @@ function editEvent(id){
   modal.style.display="flex";
 }
   async function deleteEvent(id){
-  if(!confirm("¿Estás seguro de que quieres eliminar esta actividad?")) return;
+  if(!confirm("Ã‚Â¿EstÃƒÂ¡s seguro de que quieres eliminar esta actividad?")) return;
 
   const r=await api("/api/events/"+id,{method:"DELETE"});
   const d=await r.json();
