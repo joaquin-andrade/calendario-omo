@@ -269,7 +269,7 @@ async function openUsers(){
   document.getElementById("usersbg").style.display="flex";
   await loadUsers();
 }
-function editEvent(id){
+function editEvent(id){if(!user){alert('Debes iniciar sesión para editar actividades.');showLogin();return;}
   const event=events.find(e=>e.id==id);
 
   if(!event){
@@ -296,7 +296,7 @@ function editEvent(id){
 
   modal.style.display="flex";
 }
-  async function deleteEvent(id){
+  async function deleteEvent(id){if(!user){alert('Debes iniciar sesión para eliminar actividades.');showLogin();return;}
   if(!confirm("¿Estás seguro de que quieres eliminar esta actividad?")) return;
 
   const r=await api("/api/events/"+id,{method:"DELETE"});
