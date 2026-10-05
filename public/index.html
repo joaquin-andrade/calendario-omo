@@ -291,7 +291,7 @@ function editEvent(id){
   document.getElementById("start").value=event.start||"";
   document.getElementById("end").value=event.end||"";
   document.getElementById("place").value=event.place||"";
-  document.getElementById("description").value=event.description||"";
+  document.getElementById("description").value=event.description||""; const audience=document.getElementById("audience"); Array.from(audience.options).forEach(o=>o.selected=Array.isArray(event.audience)&&event.audience.includes(o.value)); renderAudience();
 
   modal.querySelector("h2").textContent="Editar actividad";
 
