@@ -5,6 +5,13 @@ const pgSession=require("connect-pg-simple")(session);
 const {Pool}=require("pg");
 const bcrypt=require("bcryptjs");
 const path=require("path");
+const nodemailer=require("nodemailer");
+
+const mailTransport=nodemailer.createTransport({host:"smtp.gmail.com",port:465,secure:true,auth:{user:process.env.GMAIL_USER,pass:process.env.GMAIL_APP_PASSWORD}});
+
+async function sendActivityEmail(to,subject,text){if(!process.env.GMAIL_USER||!process.env.GMAIL_APP_PASSWORD)return false;await mailTransport.sendMail({from:process.env.GMAIL_USER,to,subject,text});return true}
+
+
 
 const app=express();
 app.set("trust proxy",1);
