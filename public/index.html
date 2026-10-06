@@ -164,7 +164,17 @@ async function saveEvent(){
     return;
   }
 
-  if(editing){
+if(d.emailStatus==="enviado"){
+  alert("Actividad guardada y correo enviado correctamente.");
+}else if(d.emailStatus==="no_configurado"){
+  alert("Actividad guardada, pero el correo no está configurado en Vercel.");
+}else if(d.emailStatus==="smtp_535"){
+  alert("Actividad guardada, pero Gmail rechazó las credenciales (SMTP 535).");
+}else if(d.emailStatus==="error_smtp"){
+  alert("Actividad guardada, pero ocurrió un error al enviar el correo.");
+}
+  
+if(editing){
     events=events.map(e=>
       String(e.id)===String(editingEventId) ? d : e
     );
