@@ -202,11 +202,13 @@ app.post("/api/events",publisher,async(req,res)=>{
       Array.isArray(audience)?audience:[]
     ]);
 
-    if(Array.isArray(audience)&&audience.length){
-      try{
-        await sendActivityEmail(
-          audience,
-          "Nueva actividad - Calendario Olegario Morales Oliva",
+let emailStatus="sin_destinatarios";
+
+if(Array.isArray(audience)&&audience.length){
+  try{
+    const sent=await sendActivityEmail(
+      audience,
+      "Nueva actividad - Calendario Olegario Morales Oliva",
 `Se ha publicado una nueva actividad.
 
 Actividad: ${title}
@@ -219,13 +221,16 @@ Descripción: ${description||"Sin descripción"}
 Creado por: ${req.session.user.name}
 
 Calendario Olegario Morales Oliva`
-        );
-      }catch(mailError){
-        console.error("EMAIL POST /api/events",mailError);
-      }
-    }
+    );
 
-    res.status(201).json(r.rows[0]);
+    emailStatus=sent?"enviado":"no_configurado";
+  }catch(mailError){
+    console.error("EMAIL POST /api/events",mailError);
+    emailStatus=mailError?.responseCode?`smtp_${mailError.responseCode}`:"error_smtp";
+  }
+}
+
+res.status(201).json({...r.rows[0],emailStatus});
   }catch(e){
     console.error("POST /api/events",e);
     res.status(500).json({error:"No se pudo guardar la actividad"});
