@@ -6,6 +6,7 @@ const {Pool}=require("pg");
 const bcrypt=require("bcryptjs");
 const path=require("path");
 const nodemailer=require("nodemailer");
+const {CORREOS_POR_ETIQUETA}=require("./config/destinatarios");
 
 const mailTransport=nodemailer.createTransport({host:"smtp.gmail.com",port:465,secure:true,auth:{user:process.env.GMAIL_USER,pass:process.env.GMAIL_APP_PASSWORD}});
 
@@ -207,7 +208,7 @@ let emailStatus="sin_destinatarios";
 if(Array.isArray(audience)&&audience.length){
   try{
     const sent=await sendActivityEmail(
-      audience,
+      [...new Set(audience.flatMap(grupo=>CORREOS_POR_ETIQUETA[grupo]||[]))],
       "Nueva actividad - Calendario Olegario Morales Oliva",
 `Se ha publicado una nueva actividad.
 
