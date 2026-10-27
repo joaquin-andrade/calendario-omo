@@ -273,10 +273,8 @@ app.patch("/api/events/:id",publisher,async(req,res)=>{
       return res.status(404).json({error:"Actividad no encontrada"});
     }
 
-    if(
-      req.session.user.role!=="Administrador" &&
-      existing.rows[0].created_by!==req.session.user.id
-    ){
+    if(existing.rows[0].created_by!==req.session.user.id){
+
       return res.status(403).json({
         error:"Solo puedes editar tus actividades"
       });
@@ -332,7 +330,7 @@ app.delete("/api/events/:id",publisher,async(req,res)=>{
     const id=Number(req.params.id);
     const r=await pool.query("SELECT created_by FROM events WHERE id=$1",[id]);
     if(!r.rows.length)return res.status(404).json({error:"Actividad no encontrada"});
-    if(req.session.user.role!=="Administrador"&&r.rows[0].created_by!==req.session.user.id)
+    if(r.rows[0].created_by!==req.session.user.id)
       return res.status(403).json({error:"Solo puedes eliminar tus actividades"});
     await pool.query("DELETE FROM events WHERE id=$1",[id]);
     res.json({ok:true});
@@ -361,6 +359,29 @@ app.post("/api/users",login,admin,async(req,res)=>{
   }catch(e){res.status(500).json({error:e.code==="23505"?"Ese correo ya está registrado":"No se pudo crear el usuario"});}
 });
 
+app.delete("/api/users/:id",login,admin,async(req,res)=>{
+  try{
+    const id=Number(req.params.id);
+
+    if(id===Number(req.session.user.id)){
+      return res.status(400).json({error:"No puedes eliminar tu propia cuenta"});
+    }
+
+    const r=await pool.query(
+      "DELETE FROM users WHERE id=$1 RETURNING id",
+      [id]
+    );
+
+    if(!r.rows.length){
+      return res.status(404).json({error:"Usuario no encontrado"});
+    }
+
+    res.json({ok:true});
+  }catch(e){
+    console.error("DELETE /api/users/:id",e);
+    res.status(500).json({error:"No se pudo eliminar el usuario"});
+  }
+});
 app.patch("/api/users/:id",login,admin,async(req,res)=>{
   try{
     const fields=[],values=[];
